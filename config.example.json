@@ -1,0 +1,8 @@
+{
+  "pageTitle": "Fullscreen Video Player",
+  "videos": {
+    "mp4": "video.mp4",
+    "webm": "video.webm"
+  },
+  "redirectTarget": "http://example.org/"
+}

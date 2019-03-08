@@ -1,0 +1,7 @@
+/.idea
+/config.json
+/deploy.sh
+/index.html
+/node_modules
+*.webm
+*.mp4

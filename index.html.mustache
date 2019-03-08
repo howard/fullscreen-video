@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{{ pageTitle }}</title>
+    <style>
+        html, body {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #video {
+            position: absolute;
+            top: -99999px;
+            bottom: -99999px;
+            left: -99999px;
+            right: -99999px;
+            margin: auto;
+            min-width: 100vw;
+            min-height: 100vh;
+        }
+
+        #spacer {
+            min-height: 100vh;
+            min-width: 100vw;
+        }
+
+        button {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            opacity: .6;
+            position: fixed;
+            bottom: 20px;
+        }
+
+        #skip {
+            right: 20px;
+        }
+
+        #mute, #unmute {
+            left: 20px;
+        }
+    </style>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/solid.js"
+            integrity="sha384-6FXzJ8R8IC4v/SKPI8oOcRrUkJU8uvFK6YJ4eDY11bJQz4lRw5/wGthflEOX8hjL"
+            crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/fontawesome.js"
+            integrity="sha384-xl26xwG2NVtJDw2/96Lmg09++ZjrXPc89j0j7JHjLOdSwHDHPHiucUjfllW0Ywrq"
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<div id="spacer"></div>
+
+<video id="video" autoplay muted>
+    <source src="{{ videos.webm }}" type="video/webm">
+    <source src="{{ videos.mp4 }}" type="video/mp4">
+</video>
+
+<button id="mute" title="Mute" style="display: none;">
+    <i class="mute-icon fas fa-volume-up fa-2x"></i>
+</button>
+<button id="unmute" title="Unmute">
+    <i class="fas fa-volume-mute fa-2x"></i>
+</button>
+
+<button id="skip" title="Skip">
+    <i class="fas fa-step-forward fa-2x"></i>
+</button>
+
+<script type="text/javascript">
+    const player = document.querySelector('#video');
+    const skipButton = document.querySelector('#skip');
+    const muteButton = document.querySelector('#mute');
+    const unmuteButton = document.querySelector('#unmute');
+
+    function redirect() {
+        window.location = '{{{ redirectTarget }}}'
+    }
+
+    function toggleMuteButton() {
+        player.muted = !player.muted;
+
+        if (player.muted) {
+            muteButton.style.display = 'none';
+            unmuteButton.style.display = 'inline';
+        } else {
+            muteButton.style.display = 'inline';
+            unmuteButton.style.display = 'none';
+        }
+    }
+
+    player.addEventListener('ended', redirect);
+    player.addEventListener('error', redirect);
+    skipButton.addEventListener('click', redirect);
+
+    muteButton.addEventListener('click', toggleMuteButton);
+    unmuteButton.addEventListener('click', toggleMuteButton);
+</script>
+</body>
+</html>
